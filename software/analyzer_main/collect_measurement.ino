@@ -1,17 +1,31 @@
-void collect_measurement(){
-  for (int i = 0; i < 2000; i++){
+void collect_measurement(int num_data_points, MPU6050 mpu){
 
+  double data_array[3][num_data_points];
+  double t_start = micros();
 
-    run_motor(ESC, command_speed, e_stop_pin);
+  for (int i = 0; i < num_data_points; i++){
   
     //compute and print RPM
     rpm = 60000000 / (rpmtime);
-    //Serial.println(rpm);
-  
-  
     Vector normAccel = mpu.readNormalizeAccel();
-    double time_stamp = micros();
-    //data_array[3][i] = {time_stamp, normAccel.YAxis, rpm);
+    double time_stamp = micros() - t_start;
+
+    
+    data_array[0][i] = time_stamp;
+    data_array[1][i] = normAccel.YAxis;
+    data_array[2][i] = rpm;
+  }
+
+
+  delay(10);
+  for (int i = 0; i < num_data_points; i++){
+    Serial.print(data_array[0][i]);
+    Serial.print(" ");
+    Serial.print(data_array[1][i]);
+    Serial.print(" ");
+    Serial.print(data_array[2][i]);
+    Serial.write(10);
+    delay(10);
   }
 
 

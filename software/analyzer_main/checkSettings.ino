@@ -1,4 +1,4 @@
-void checkSettings()
+void checkSettings(MPU6050 mpu)
 {
   Serial.println();
   
