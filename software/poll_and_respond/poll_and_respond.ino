@@ -21,17 +21,21 @@ void loop() {
     serial_data = Serial.read();
     //Serial.println(serial_data, DEC);
 
-    if (serial_data == 1){
-      digitalWrite(13, HIGH);
-      for (i; i < 2000; i++){
+    if (serial_data > 0){
+      for (i; i < 400; i++){
+        if(i % 10 == 0){
+          digitalWrite(13, HIGH);
+        }
         Serial.print(millis());
         Serial.print(" ");
         Serial.print(sin(i*50.0/360.0));
-        Serial.write(13);
+        Serial.print(" ");
+        Serial.print(i);
         Serial.write(10);
         delay(2);
+        
+        digitalWrite(13, LOW);
       }
-      digitalWrite(13, LOW);
       //serial_data = 0;
         
     }

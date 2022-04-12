@@ -1,3 +1,4 @@
+
 #include <Servo.h>
 #include <Wire.h>
 
@@ -12,7 +13,7 @@ int e_stop_pin = 8;
 
 int serial_data = 0;
 
-
+int serial_data_scale = 10;
 
 
 //ISR vairables for RPM
@@ -28,7 +29,7 @@ void setup() {
   
   
   //start serial connection
-  Serial.begin(9600);
+  Serial.begin(115200);
   //e-stop wire
   pinMode(e_stop_pin, INPUT_PULLUP);
   //LED
@@ -69,7 +70,7 @@ void loop() {
   
   //compute and print RPM
   rpm = 60000000 / (rpmtime);
-  //Serial.println(rpm);
+  
 
 
   Vector normAccel = mpu.readNormalizeAccel();
@@ -83,10 +84,12 @@ void loop() {
   //============================================================
   if(Serial.available() > 0){   //check if any data was received
     serial_data = Serial.read();
+    
+    //Serial.println(serial_data, DEC);
 
     if (serial_data > 0){
       digitalWrite(13, LOW);
-      collect_measurement(serial_data * 100, mpu);
+      collect_measurement(serial_data * serial_data_scale, mpu);
       digitalWrite(13, HIGH);
     }
   }

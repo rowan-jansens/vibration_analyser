@@ -1,13 +1,14 @@
 void collect_measurement(int num_data_points, MPU6050 mpu){
 
   double data_array[3][num_data_points];
+
   double t_start = micros();
 
   for (int i = 0; i < num_data_points; i++){
   
     //compute and print RPM
     rpm = 60000000 / (rpmtime);
-    Vector normAccel = mpu.readNormalizeAccel();
+    Vector normAccel = mpu.readRawAccel();
     double time_stamp = micros() - t_start;
 
     
@@ -16,8 +17,11 @@ void collect_measurement(int num_data_points, MPU6050 mpu){
     data_array[2][i] = rpm;
   }
 
-
+  digitalWrite(13, HIGH);
   delay(10);
+
+
+  
   for (int i = 0; i < num_data_points; i++){
     Serial.print(data_array[0][i]);
     Serial.print(" ");
@@ -25,9 +29,8 @@ void collect_measurement(int num_data_points, MPU6050 mpu){
     Serial.print(" ");
     Serial.print(data_array[2][i]);
     Serial.write(10);
-    delay(10);
+    digitalWrite(13, LOW);
+    delay(4);
   }
-
-
   
 }
