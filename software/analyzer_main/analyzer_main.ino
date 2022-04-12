@@ -83,21 +83,10 @@ void loop() {
   //============================================================
   if(Serial.available() > 0){   //check if any data was received
     serial_data = Serial.read();
-    
-    //Serial.println(serial_data, DEC);
 
     if (serial_data > 0){
       digitalWrite(13, LOW);
-//      for (int i = 0; i < serial_data; i++){
-//        Serial.print(1);
-//        Serial.print(" ");
-//        Serial.print(2);
-//        Serial.print(" ");
-//        Serial.print(3);
-//        Serial.write(10);
-//        delay(5);
-//      }
-      collect_measurement(serial_data, mpu);
+      collect_measurement(serial_data * 100, mpu);
       digitalWrite(13, HIGH);
     }
   }
