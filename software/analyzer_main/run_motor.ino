@@ -5,9 +5,9 @@ void run_motor(){
   int e_stop = digitalRead(e_stop_pin);
 
   if (e_stop == HIGH) {
-    ESC_obj.write(0);
+    ESC.write(0);
   } 
   else {
-    ESC_obj.write(command_speed);
+    ESC.write(command_speed);
   }
 }
