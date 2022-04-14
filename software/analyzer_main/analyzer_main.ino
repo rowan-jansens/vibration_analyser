@@ -17,7 +17,7 @@ int serial_data_scale = 10;
 
 
 //ISR vairables for RPM
-volatile float rpmtime = 1, t, t_start;
+volatile float time_of_motor_0 = 1, t_start, rpmtime;
 double rpm;
 
 //servo object + speed
@@ -57,7 +57,7 @@ void setup() {
 
   //attach encoder as interupt
   pinMode(encoder_interupt_pin, INPUT);
-  //attachInterrupt(encoder_interupt_pin, RPM, FALLING);
+  attachInterrupt(encoder_interupt_pin, RPM, Rising);
 
   t_start = micros();
 }
@@ -97,7 +97,7 @@ void loop() {
 
 //ISR for encoder
 void RPM () {
-  t = micros();
-  rpmtime = t - t_start;
-  t_start = t;
+  time_of_motor_0 = micros();
+  rpmtime = time_of_motor_0 - t_start;
+  t_start = time_of_motor_0;
 }

@@ -1,4 +1,4 @@
-void run_motor(Servo ESC_obj, int command_speed, int e_stop_pin){
+void run_motor(){
 
   
   //read e_stop pin

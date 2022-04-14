@@ -1,4 +1,4 @@
-void collect_measurement(int num_data_points, MPU6050 mpu){
+void collect_measurement(int num_data_points){
 
   double data_array[3][num_data_points];
 
@@ -14,7 +14,7 @@ void collect_measurement(int num_data_points, MPU6050 mpu){
     
     data_array[0][i] = time_stamp;
     data_array[1][i] = normAccel.YAxis;
-    data_array[2][i] = rpm;
+    data_array[2][i] = time_of_motor_0;
   }
 
   digitalWrite(13, HIGH);
@@ -30,7 +30,7 @@ void collect_measurement(int num_data_points, MPU6050 mpu){
     Serial.print(data_array[2][i]);
     Serial.write(10);
     digitalWrite(13, LOW);
-    delay(4);
+    delay(2);
   }
   
 }
