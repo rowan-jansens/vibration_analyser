@@ -77,12 +77,13 @@ void loop() {
   
 
   //poll MPU
-  mpu.getRotation(&ax, &ay, &az);
+  mpu.getAcceleration(&ax, &ay, &az);
 
   //print data
-  Serial.print(rpm);
-  Serial.print(" ");
+  //Serial.print(rpm);
+  //Serial.print(" ");
   Serial.println(ay);
+
 
 
   //=============check for serial command ======================
@@ -99,6 +100,7 @@ void loop() {
       digitalWrite(13, HIGH);
     }
   }
+
 }
 
 //==========================================================
