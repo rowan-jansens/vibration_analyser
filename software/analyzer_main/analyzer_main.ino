@@ -10,6 +10,7 @@
 
 MPU6050 mpu;
 int16_t ax, ay, az;
+double ay_offset = -433.31;
 
 //variables
 int esc_pin = 9;
@@ -27,7 +28,7 @@ double rpm;
 
 //servo object + speed
 Servo ESC;
-int command_speed = 20;
+int command_speed = 15;
 
 //==========================================================
 //==========================================================
@@ -82,7 +83,7 @@ void loop() {
   //print data
   //Serial.print(rpm);
   //Serial.print(" ");
-  Serial.println(ay);
+  Serial.println((double) ay - ay_offset);
 
 
 

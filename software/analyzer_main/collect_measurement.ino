@@ -8,7 +8,7 @@ void collect_measurement(int num_data_points){
     //save dirrectly into array
     mpu.getAcceleration(&ax, &ay, &az);
 
-    data_array[1][i] = (double) ay;
+    data_array[1][i] = (double) ay  - ay_offset;
     data_array[0][i] = micros();
     data_array[2][i] = time_of_motor_0;
 
