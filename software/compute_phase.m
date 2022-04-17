@@ -56,7 +56,7 @@ function [phase, amplitude] = compute_phase(data_array, debug)
 
             t_0 = data_array(i,3);
             observation_range = 1/rpm_frequ;
-            time_range = linspace(data_array(i,3), data_array(i,1) + (observation_range), 1000);
+            time_range = linspace(data_array(i,3), data_array(i,1) + (observation_range * 1.25), 1000);
             observation_data = p(1) .* sin(sin_frequ .* time_range - p(2));
 
             if(debug)
@@ -67,7 +67,7 @@ function [phase, amplitude] = compute_phase(data_array, debug)
             %find max of fit and find time difference
             [~, idx] = max(observation_data);
             phase_time = time_range(idx) - t_0;
-            phase_angle(end+1) = phase_time * sin_frequ;
+            phase_angle(end+1) = mod(phase_time * sin_frequ, 2*pi);
         end
     end
 
