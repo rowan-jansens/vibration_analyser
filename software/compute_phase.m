@@ -56,7 +56,7 @@ function [phase, amplitude] = compute_phase(data_array, debug)
 
             t_0 = data_array(i,3);
             observation_range = 1/rpm_frequ;
-            time_range = linspace(data_array(i,3), data_array(i,1) + (observation_range * 1.25), 1000);
+            time_range = linspace(data_array(i,3), data_array(i,1) + (observation_range), 1000);
             observation_data = p(1) .* sin(sin_frequ .* time_range - p(2));
 
             if(debug)
@@ -82,9 +82,10 @@ function [phase, amplitude] = compute_phase(data_array, debug)
     amplitude = rms(data_array(:,2));
 
     if(debug)
-    phase
-    standard_deviation = std(phase_angle)
-    phase_range = [min(phase_angle) max(phase_angle)]
+
+    disp("Phase: " + string(rad2deg(phase)) + "deg")
+    disp("STD: " + string(std(rad2deg(phase_angle))) + "deg")
+    phase_range = [min(rad2deg(phase_angle)) max(rad2deg(phase_angle))]
     end
 
 
