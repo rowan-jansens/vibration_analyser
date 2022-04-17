@@ -15,19 +15,24 @@ void collect_measurement(int num_data_points){
   }
 
   //turn on led to show that measurement period is complete
-  digitalWrite(13, HIGH);
   delay(10);
-
+  
+  
   //loop again and print array to serial
   for (int i = 0; i < num_data_points; i++){
+    if(i % 25 == 0){
+      digitalWrite(13, HIGH);
+    }
     Serial.print(data_array[0][i]);
     Serial.print(" ");
     Serial.print(data_array[1][i]);
     Serial.print(" ");
     Serial.print(data_array[2][i]);
+
     Serial.write(13);  //carrage return char
     digitalWrite(13, LOW);
     //add some dealy for matlab to keep up
     delay(2);
+    digitalWrite(13, LOW);
   }
 }

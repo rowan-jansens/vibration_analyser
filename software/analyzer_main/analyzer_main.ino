@@ -28,7 +28,7 @@ double rpm;
 
 //servo object + speed
 Servo ESC;
-int command_speed = 15;
+int command_speed = 18;
 
 //==========================================================
 //==========================================================
@@ -81,9 +81,9 @@ void loop() {
   mpu.getAcceleration(&ax, &ay, &az);
 
   //print data
-  //Serial.print(rpm);
-  //Serial.print(" ");
-  Serial.println((double) ay - ay_offset);
+//  Serial.print(rpm);
+//  Serial.print(" ");
+//  Serial.println((double) ay - ay_offset);
 
 
 
@@ -97,6 +97,7 @@ void loop() {
     //if number is recived, collect that number (times 10) of data points
     if (serial_data > 0){
       digitalWrite(13, LOW);
+      delay(100);
       collect_measurement(serial_data * serial_data_scale);
       digitalWrite(13, HIGH);
     }
