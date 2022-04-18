@@ -15,10 +15,10 @@ function [correction_mass, correction_mass_angle] = compute_correction(A, AB, te
 
     if (subtract_mode)
         correction_mass = -test_mass *  (A(2) / B(2));
-        correction_mass_angle = mod(rad2deg(relative_angle + pi) + test_mass_angle, 360);
+        correction_mass_angle = test_mass_angle + relative_angle + pi;
     else
         correction_mass = test_mass *  (A(2) / B(2));
-        correction_mass_angle = mod(rad2deg(relative_angle) + test_mass_angle, 360);
+        correction_mass_angle = test_mass_angle + relative_angle;
     end
 
 
@@ -30,22 +30,15 @@ function [correction_mass, correction_mass_angle] = compute_correction(A, AB, te
     hold on
     polarplot([0 AB(1)], [0, AB(2)], "Linewidth", 2, "Color", "red")
 
-    polarplot([A(1) AB(1)], [A(2) AB(2)], ":", "Linewidth", 1, 'Color', 'yellow')
+    polarplot([A(1) AB(1)], [A(2) AB(2)], "Linewidth", 2)
 
-    polarplot([0 B(1)], [0, B(2)], "Linewidth", 2, 'Color', 'yellow')
+    polarplot([0 B(1)], [0, B(2)], "Linewidth", 2)
 
     
 
-    polarplot([0 B(1) + relative_angle], [0, B(2) * A(2) / B(2)], "Linewidth", 2, "Color", 'c')
+    polarplot([0 B(1) + relative_angle], [0, B(2)], "Linewidth", 2)
 
 
-    lgd = legend("A", "A+B", "", "B", "\alphaB+\phi", "Location", "bestoutside");
-    lgd.Color = [0 0 0];
-    lgd.TextColor = [1 1 1];
-    lgd.EdgeColor = [0.4 0.4 0.4];
-set(gca,'Color',[0.1 0.1 0.1])
-set(gca,'GridColor',[1 1 1])
-set(gca,'ThetaColor',[ 1 1 1])
-set(gca,'RColor',[1 1 1])
-set(gcf, 'InvertHardCopy', 'off'); 
-set(gcf, 'Color', [0 0 0]); 
+    legend("A", "A+B", "B", "B", "B+\phi")
+    lgd = legend('boxoff')
+
