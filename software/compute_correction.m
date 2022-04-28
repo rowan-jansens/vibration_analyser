@@ -23,6 +23,12 @@ function [correction_mass, correction_mass_angle] = compute_correction(A, AB, te
 
 
 
+
+     blue = [57 106 177]./255;
+red = [204 37 41]./255;
+black = [83 81 84]./255;
+green = [62 150 81]./255;
+
     figure()
     clf
     
@@ -49,3 +55,29 @@ set(gca,'ThetaColor',[ 1 1 1])
 set(gca,'RColor',[1 1 1])
 set(gcf, 'InvertHardCopy', 'off'); 
 set(gcf, 'Color', [0 0 0]); 
+
+
+%     polarplot([0 A(1)], [0, A(2)], "Linewidth", 2, "Color", blue)
+%     hold on
+%     polarplot([0 AB(1)], [0, AB(2)], "Linewidth", 2, "Color", red)
+% 
+%     polarplot([A(1) AB(1)], [A(2) AB(2)], ":", "Linewidth", 1, 'Color', green)
+% 
+%     polarplot([0 B(1)], [0, B(2)], "Linewidth", 2, 'Color', green)
+% 
+%     
+% 
+%     polarplot([0 B(1) + relative_angle], [0, B(2) * A(2) / B(2)], "--", "Linewidth", 2, 'Color', green)
+% 
+% 
+% 
+%     title("Vibrations State Polar Plot")
+% 
+% 
+%     text(A(1)+pi/50, 3000, "A","Color", blue)
+%     text(AB(1)+pi/12, 1500, "AB", "Color", red)
+%     text(B(1)-pi/50, 3000, "B", "Color", green)
+%     text(B(1) + relative_angle - pi/50, 3000, "B+phi", "Color", green)
+
+
+    %lgd = legend("A", "A+B", "", "B", "\alphaB+\phi", "Location", "bestoutside");
