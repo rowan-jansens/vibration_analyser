@@ -1,11 +1,8 @@
-function [phase, amp] = collect_sample(arduino, offset, debug)
-
-   
+function calibration_offset = calibrate(arduino)
     num_data_points = 100;
 
     %set up data struct to read
     arduino.UserData = struct("Data",zeros(num_data_points,3),"Count",1, "Points", num_data_points, "Running", true);
-
     configureTerminator(arduino,"CR");
     configureCallback(arduino,"terminator", @read_data);
 
@@ -18,13 +15,10 @@ function [phase, amp] = collect_sample(arduino, offset, debug)
     pause(0.01)
     end
 
-    if(debug)
-        disp("done")
-    end
 
 
-    data_array=[(arduino.UserData.Data(:,1)-arduino.UserData.Data(1,1))./1000000    arduino.UserData.Data(:,2)-offset  (arduino.UserData.Data(:,3)-arduino.UserData.Data(1,1))./1000000];
-    [phase, amp] = compute_phase(data_array, debug);
+
+    calibration_offset = mean(arduino.UserData.Data(:,2));
     
 
     function read_data(src, ~)
@@ -48,5 +42,4 @@ function [phase, amp] = collect_sample(arduino, offset, debug)
 
          end
     end
-
 end

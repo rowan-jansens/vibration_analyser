@@ -10,13 +10,12 @@
 
 MPU6050 mpu;
 int16_t ax, ay, az;
-double ay_offset = -433.31;
 
 //variables
 int esc_pin = 9;
-int led_pin = 13;
+int led_pin = 3;
 int encoder_interupt_pin = 2;
-int e_stop_pin = 8;
+int e_stop_pin = 7;
 int serial_data = 0;
 int serial_data_scale = 10;
 
@@ -53,13 +52,14 @@ void setup() {
         Fastwire::setup(400, true);
     #endif
     mpu.initialize();
+    digitalWrite(led_pin, HIGH);
 
 
   delay(500);
 
   //attach encoder as interupt
   pinMode(encoder_interupt_pin, INPUT);
-  attachInterrupt(encoder_interupt_pin, RPM, RISING);
+
 
   t_start = micros();
 }
@@ -70,7 +70,7 @@ void setup() {
 void loop() {
 
   //turn on LED when in loop
-  digitalWrite(13, HIGH);
+  digitalWrite(led_pin, HIGH);
   //run motor
   run_motor();
   //compute and print RPM
@@ -83,7 +83,7 @@ void loop() {
   //print data
 //  Serial.print(rpm);
 //  Serial.print(" ");
-//  Serial.println((double) ay - ay_offset);
+ //Serial.println((double) ay);
 
 
 
@@ -96,10 +96,10 @@ void loop() {
 
     //if number is recived, collect that number (times 10) of data points
     if (serial_data > 0){
-      digitalWrite(13, LOW);
+      digitalWrite(led_pin, LOW);
       delay(100);
       collect_measurement(serial_data * serial_data_scale);
-      digitalWrite(13, HIGH);
+      digitalWrite(led_pin, HIGH);
     }
   }
 
